@@ -5,8 +5,8 @@ Este trabajo espera que nosotros podamos resolver el conocido problema VRP (Vehi
 Debemos minimizar una función de la forma:
 f(d, t) = d + g(t) 
 Donde d es la distancia recorrida por cada vehículo (número ilimitado de estos) y g(t) es una función que permite realizar una comparación entre el tiempo y la distancia.
-El objetivo del trabajo es buscar un equilibrio entre costo de entrega y tiempo. Uno de los mayores ejemplos es el reparto en casa o también llamado “Delivery”, los cuales reciben órdenes o pedidos mediante una aplicación, luego deben de planificar una ruta considerada para reducir el costo de entrada y el tiempo ya que a mayor demora, menor será la satisfacción del cliente lo cual significa obtener una mala calificación y pérdida de clientes.
-Para simplificar el problema se plantea que la ciudad donde se distribuye tiene una distribución perfectamente rectangular, similar a Manhattan.
+El objetivo del trabajo es buscar un equilibrio entre costo de entrega por distancia y costo por demora (tiempo). Uno de los mayores ejemplos es el reparto en casa o también llamado “Delivery”, los cuales reciben órdenes o pedidos mediante una aplicación, luego deben de planificar una ruta considerada para reducir el costo de entrada y el tiempo ya que a mayor demora, menor será la satisfacción del cliente lo cual significa obtener una mala calificación y pérdida de clientes.
+Para simplificar el problema se plantea que la ciudad donde se distribuye tiene una **distribución perfectamente rectangular**, similar a Manhattan.
 
 ## Requisitos
 Entre 50 y 100 puntos de distribución (almacenes).
@@ -20,12 +20,12 @@ f(d, t) = d + 0,1 t ^3
 Hemos decidido definir la función de este modo, porque consideramos que el tiempo es relevante cuando se supera a la unidad de medida básica, que hemos escogido como la hora, además, consideramos a la distancia como una función lineal de costo en sí misma, y suponemos que se mide en kilómetros recorridos.
 
 Empresa modelo a elegir:
-La empresa que escogimos para tomar en cuenta los factores de cálculo es Fazil. Esta empresa, es del grupo Falabella. Es un emprendimiento que se dedica a hacer delivery de productos de supermercado. Tienen una política de tiempo de entrega en 1 hora, por ello, decidimos considerar esa la unidad de medida básica para el tiempo.
+La empresa que escogimos para tomar en cuenta los factores de cálculo es **Fazil**. Esta empresa, es del grupo Falabella. Es un emprendimiento que se dedica a hacer delivery de productos de supermercado. Tienen una política de tiempo de entrega en 1 hora, por ello, decidimos considerar esa la unidad de medida básica para el tiempo.
 
 Otras especificaciones y restricciones:
 
 - Como la ciudad es completamente rectangular, de arista a arista la distancia de recorrido es la misma para cada arista.
-- Pero, cómo puede haber tráfico, o arreglos de pisto, o construcciones, o accidentes, el tiempo varía.
+- Pero, como puede haber tráfico, o arreglos de pista, o construcciones, o accidentes, el tiempo varía.
 - El número de nodos se genera aleatoriamente.
 - El número de almacenes se genera aleatoriamente.
 - Se usará lista de adyacencia para definir la conectividad de los nodos.
