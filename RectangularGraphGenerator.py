@@ -1,9 +1,9 @@
 import random
 
 def findNPerCoordinates(x, y, Vmax, Hmax):
-    if x >= Vmax or x < 0:
+    if y >= Vmax or y < 0:
         return None
-    if y >= Hmax or y < 0:
+    if x >= Hmax or x < 0:
         return None
     N = x*Vmax + y
     return N
