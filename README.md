@@ -4,5 +4,5 @@ Para ver el desarrollo del trabajo, sirvase a entrar a todos los otros archivos.
 Solo es necesario que los archivos que tengan fórmulas matemáticas se copien y peguen en esa página y se podrán visualizar de forma completa.
 
 ### Realizado por:
-Gabriel Eugenio De la Puente Bozzo
-Omar Willams Fuetes Ortiz
+- Gabriel Eugenio De la Puente Bozzo
+- Omar Willams Fuetes Ortiz
