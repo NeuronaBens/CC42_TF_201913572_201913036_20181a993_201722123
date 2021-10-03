@@ -8,3 +8,6 @@ Solo es necesario que los archivos que tengan fórmulas matemáticas se copien y
 - Omar Willams Fuetes Ortiz
 
 ### Puede ingresar a la versión HTML del algoritmo de Gabriel De la Puente en el siguiente link: https://neuronabens.github.io/cc42_tf_201913572_201913036_20181a993_201722123/
+
+## link al video
+### https://youtu.be/bhNs3a4cWaM
