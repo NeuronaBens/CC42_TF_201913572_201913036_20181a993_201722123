@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algoritmo de Gabriel</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="algoritmo-de-gabriel">Algoritmo de Gabriel</h1>
+<h2 id="consideraciones-importantes">Consideraciones importantes</h2>
+<ol>
+<li>Vale la pena resaltar que el grafo es perfectamente rectangular (todo nodo que no esté en una esquina o lado máximo tiene 4 nodos hermanos, que son adyacentes)</li>
+<li>Hemos considerado a todos los puntos que no son distribución como puntos de entrega</li>
+<li>Consideramos el peor camino posible como el recorrido secuencial de todos los nodos desde el inicio hasta el final.<br>
+La comlejidad para este “peor” algoritmo (o el más costoso) es:<br>
+<span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>c</mi><mo stretchy="false">(</mo><mi>e</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo><mo>=</mo><mi>v</mi><mo>+</mo><mn>0</mn><mo separator="true">,</mo><mn>011111</mn><msup><mi>e</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">
+c(e, v) = v+ 0,011111e^{2} 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">c</span><span class="mopen">(</span><span class="mord mathnormal">e</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.66666em; vertical-align: -0.08333em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">v</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1.05855em; vertical-align: -0.19444em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">011111</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.864108em;"><span class="" style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></span></span> donde c es la función de costo de realizar las entregas de ese modo.<br>
+v representa la cantidad de vértices y e representa la cantidad de aristas.<br>
+Por otro lado, la complejidad de este algoritmo es:<br>
+<span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>e</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo><mo>=</mo><mi>e</mi><mo>+</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">
+O(e, v) = e + v 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">e</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.66666em; vertical-align: -0.08333em;"></span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.03588em;">v</span></span></span></span></span></span> Como ejemplo, si tenemos 10 nodos y 100 vértices, la cantidad de accesos a los datos sería 110.</li>
+<li>El uso de motociclistas es ilimitado y sin costo, o sea, solamente se considera la distancia total recorrida y el tiempo que usan en el viaje.</li>
+</ol>
+<h2 id="descripción-verbal-de-la-idea-de-algoritmo">Descripción verbal de la idea de algoritmo</h2>
+<h3 id="comparaciones-iniciales">Comparaciones iniciales</h3>
+<ul>
+<li>El tiempo a corto plazo (menos de 90 minutos de recorrido total de un único motociclista) impacta menos que la cantidad de nodos recorridos.</li>
+<li>El tiempo a largo plazo (más de 90 minutos) tiene más impacto que la distancia recorrida en ese tramo particular.</li>
+<li>El punto donde se encuentran las funciones de costo individuales (d) y (0,1t^2), se halla de la siguiente manera:<br>
+<span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">
+d(x) = x
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">d</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">x</span></span></span></span></span></span> <span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>t</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mn>01</mn><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">
+t(x)= 0,01x^{2}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1.05855em; vertical-align: -0.19444em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">01</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.864108em;"><span class="" style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></span></span> <span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>t</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mn>01</mn><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mi>x</mi><mo>→</mo><msub><mi>x</mi><mrow><mn>1</mn><mo separator="true">,</mo><mn>2</mn></mrow></msub><mo>=</mo><mn>0</mn><mo separator="true">;</mo><mn>90</mn></mrow><annotation encoding="application/x-tex">
+d(x) = t(x) \rightarrow 0 = 0,01x^{2} - x \rightarrow x_{1,2} = 0; 90
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">d</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">0</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 1.05855em; vertical-align: -0.19444em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">01</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.864108em;"><span class="" style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.716668em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.301108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mpunct mtight">,</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.83888em; vertical-align: -0.19444em;"></span><span class="mord">0</span><span class="mpunct">;</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">90</span></span></span></span></span></span></li>
+<li>esta nueva información nos provee de una realización importante, y es que hasta que llegamos a la hora y media, el tiempo no será un factor tan importante. Pero, a medida que crezca ese valor, será cuadráticamente más importante.</li>
+</ul>
+<h3 id="el-peor-resultado-en-3000-5060-nodos">El peor resultado en 3000 (50*60) nodos</h3>
+<p>Con ayuda de una función desarrollada previamente, podemos calcular, que el peor resultado posible (usando el algoritmo secuencial y 1 solo motorizado) en un promedio de 5 minutos entre nodos es:<br>
+<span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>c</mi><mo stretchy="false">(</mo><mi>d</mi><mo separator="true">,</mo><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><mn>3000</mn><mo>+</mo><mn>0</mn><mo separator="true">,</mo><mn>011111</mn><mo stretchy="false">(</mo><mn>5</mn><mo>×</mo><mn>50</mn><mo>×</mo><mn>60</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>≈</mo><mn>2500000</mn></mrow><annotation encoding="application/x-tex">
+c(d,t) = 3000 + 0,011111(5 \times 50 \times 60)^{2} \approx 2500000
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">c</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">3000</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">011111</span><span class="mopen">(</span><span class="mord">5</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">50</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1.11411em; vertical-align: -0.25em;"></span><span class="mord">60</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.864108em;"><span class="" style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">2500000</span></span></span></span></span></span> Suponiendo que el costo es en soles, podemos decir que cuesta 25 milllones de soles realizar esa operación (en perdidas materiales, y efecto del tiempo de demora sobre el negocio).</p>
+<h3 id="mi-solución-algoritmica">Mi solución algoritmica</h3>
+<p>Para solucionar este problema mi propuesta es la siguiente<br>
+Algoritmo:</p>
+<p>Definace el Grafo G de dimensiones X, Y<br>
+Almacene los nodos de distribución en el arreglo D de forma que y aumenta Y veces antes de que aumente 1 vez x.</p>
+<p>Definace la función FVAdj con parámetros x, y, X, Y, dir, sup:<br>
+» si dir = “left”:<br>
+»» disminuya x en 1 mientras el nodo G(x+1, y) exista:<br>
+»»» si sup = “total” y el nodo en x+1 de G esta visitado o es de distribución:<br>
+»»»» no visite ese nodo (regrese False)<br>
+»»» si sup = “dist” y el nodo es de distribución:<br>
+»»»» no visite ese nodo (regrese False)<br>
+»»» si sup = “semi”:<br>
+»»»» si el nodo es de distribución:<br>
+»»»»» no visite a ese nodo (regrese False)<br>
+»»»» si el nodo esta visitado y el resto de nodos que le siguen también:<br>
+»»»»» no visite ese nodo (regrese False)<br>
+»»»» de otra forma:<br>
+»»»»» visite ese nodo (regrese True)<br>
+»»» de otra forma:<br>
+»»»» visítelo (regrese True)<br>
+» Al igual que el patrón anterior, defina de la misma manera para las direcciones “right”, “up”, “down”, únicamente cambiando el cambio de la variable que corresponda.</p>
+<p>Inicie un bucle que recorre D =&gt;<br>
+» Inicie un bucle indefinido:<br>
+»» aux = FVAdj(x, y, X, Y, “left”, “semi”)<br>
+»»» si aux es falso:<br>
+»»»» detengase<br>
+»»» de otra forma:<br>
+»»»» continúe<br>
+» Realice bucles similares para cada dirección “right”, “up”, “down”.</p>
+<p>Inicie un bucle que recorre D =&gt;<br>
+» Inicie un bucle indefinido:<br>
+»» verifique si el nodo (x+1, y+1) de G está visitado o no existe:<br>
+»»» si se cumple la condición:<br>
+»»»»  continúe<br>
+»»» si no:<br>
+»»»» Visite a esa nodo, pero escoja la menor distance entre la opción “left”, “down” y la opción “down”, “left”.<br>
+»»»» Luego visite a todos los nodos a la derecha de este nodo, de forma secuencial con FVAdj(x, y, X, Y, “right”, “semi”), si regresa False, termine el bucle.</p>
+<p>Inicie un bucle que recorre D =&gt;<br>
+» inice un bucle indefinido:<br>
+»» defina n = 1<br>
+»» bool = la columna x + n de G esta completamente visitada<br>
+»» si bool es True:<br>
+»»» detengase<br>
+»» Realice FVAdj(x, y, X, Y, “up”, “semi”) de forma secuencial en todos los nodos de la columna si bool es False para esa columna, si FVAdj regresa False:<br>
+»»» n+=1<br>
+»»» continúe<br>
+» inice un bucle indefinido:<br>
+»» defina n = 1<br>
+»» bool = la columna x + n de G esta completamente visitada<br>
+»» si bool es True:<br>
+»»» detengase<br>
+»» Realice FVAdj(x, y, X, Y, “down”, “semi”) de forma secuencial en todos los nodos de la columna si bool es False para esa columna, si FVAdj regresa False:<br>
+»»» n+=1<br>
+»»» continúe</p>
+<p>Todos los Nodos deberían haber sido visitados al menos un vez hasta este punto.</p>
+<h3 id="análisis-de-complejidad">Análisis de complejidad</h3>
+<p>Ampliamente, y sin entrar en mucho detalle, la complejidad de este algoritmo en el peor de los casos es O(v) donde v es el número de nodos. Esto se cumple porque los recorridos de nodos siempre son o en columnas (X) o en filas (Y), por ende, se realizan X verificaciones en Y filas o viceversa, y X*Y es igual a la cantidad de nodos (v), en este caso.</p>
+<h3 id="análisis-del-espacio-de-búsqueda">Análisis del espacio de búsqueda</h3>
+<p>Para este algoritmo en particular, el espacio de búsqueda se puede proveer de un nodo a la vez y supone la desición de continuar visitando o no. Por ello, la altura del espacio de búsqueda de este algoritmo es igual a la densidad del espacio de búsqueda.</p>
+<h3 id="en-comparación-con-el-peor-caso-posible">En comparación con el peor caso posible</h3>
+<p>Este algoritmo tiene la desventaja de que puede visitar el mismo nodo entre 1 y 2 veces, por ello puede costar un poco más en distancia, pero en el caso del tiempo es sumamente más productivo, ya que explota la libertad de tener infinitos motorizados.<br>
+Se puede calcular el peor caso posible dentro de mi solución para compararlo con los solución completamente secuencial.<br>
+El peor caso posible con este algoritmo supone visitar los nodos de una columna completamente por cada fila, entonces, tomando en cuenta que el promedio de tiempo entre nodo y nodo es 5 minutos, se puede expresar la fórmula de la siguiente manera:<br>
+<span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>c</mi><mo stretchy="false">(</mo><mi>d</mi><mo separator="true">,</mo><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><mn>50</mn><mo>×</mo><mn>0</mn><mo separator="true">,</mo><mn>011111</mn><mo stretchy="false">(</mo><mn>5</mn><mo>×</mo><mn>60</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>≈</mo><mn>50000</mn></mrow><annotation encoding="application/x-tex">
+c(d, t) = 50 \times 0,011111(5 \times 60)^2 \approx 50000
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">c</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">50</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">011111</span><span class="mopen">(</span><span class="mord">5</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1.11411em; vertical-align: -0.25em;"></span><span class="mord">60</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.864108em;"><span class="" style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">50000</span></span></span></span></span></span>Esta solución, entonces, reduce el costo de la propuesta secuencial en 50 veces.<br>
+Se puede concluir, entonces, que mi solución en una demora de 2 veces el tiempo de la solución más simple, permite una respuesta 50 veces más eficiente.</p>
+</div>
+</body>
+
+</html>
