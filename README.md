@@ -11,3 +11,6 @@ Solo es necesario que los archivos que tengan fórmulas matemáticas se copien y
 
 ## link al video
 ### https://youtu.be/bhNs3a4cWaM
+
+## Cabe Resaltar
+### El grafo se genera de forma aleatoria con la función que hemos creado, aun así tenemos un par de .CVS donde se encuentra una versión estática de este grafo (NO HA SIDO GENERADO CON NUESTRO ALGORITMO, ya que no es necesario cuando se puede generar cada vez uno nuevo).
