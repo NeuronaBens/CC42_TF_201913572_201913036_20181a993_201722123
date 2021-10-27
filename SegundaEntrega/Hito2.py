@@ -46,5 +46,6 @@ print(path)
 index = 0
 for i in types:
   if i == 'd':
-    bfs(G, index)
+    path = bfs(G, index)
+    print(path)
   index = index + 1
