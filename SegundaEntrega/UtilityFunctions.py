@@ -135,7 +135,6 @@ def pointTo4ElementList(pointString, delimiter="."):
 def retrieveInfoFromDataset_v1(): #esta versión permite extraer los nodos del archivo "totalidad_de_puntos.csv"
     N = np.zeros((1000000, 3), dtype=int)
     Types = [None]*1000000
-    aux = None
     with open("totalidad_de_puntos.csv", "r") as csv_file:
         reader = csv.reader(csv_file)
         i = 0
@@ -180,23 +179,49 @@ def reconstructDataset_v1(N, maxV, maxH): #si es de 1000x1000 maxV y maxH son 10
         i+=1
     return G
 
+def reconstructDataset_v2(N, maxV, maxH): #si es de 1000x1000 maxV y maxH son 1000, 1000
+    G = [None]*(maxV*maxH)
+    i = 0
+    for node in N[0]:
+        posibleDirs = [True, True, True, True] # "up", "down", "left", "right"
+        if node[1] <= 0:
+            posibleDirs[2] = False
+        if node[2] <= 0:
+            posibleDirs[0] = False 
+        if node[1] >= maxH - 1:
+            posibleDirs[3] = False
+        if node[2] >= maxV - 1:
+            posibleDirs[1] = False
+        aux = []
+        if posibleDirs[0]:
+            aux.append((getNodeByDir(node[0], maxV, "up"), random.randint(1, 10)))
+        if posibleDirs[1]:
+            aux.append((getNodeByDir(node[0], maxV, "down"), random.randint(1, 10)))
+        if posibleDirs[2]:
+            aux.append((getNodeByDir(node[0], maxV, "left"), random.randint(1, 10)))
+        if posibleDirs[3]:
+            aux.append((getNodeByDir(node[0], maxV, "right"), random.randint(1, 10)))
+        
+        G[i] = aux
+        i+=1
+    return G
+
 ############################################################
 
 #pl, G, h, v = generateRectangularGraph(2, 12, 12)
-
+'''
 Nodes = retrieveInfoFromDataset_v1()
+'''
+
 '''
 Nodes = [[0, 0, 0], [1, 0, 1], [2, 0, 2],
          [3, 1, 0], [4, 1, 1], [5, 1, 2],
          [6, 2, 0], [7, 2, 1], [8, 2, 2]]
 '''
 
+'''
 g = reconstructDataset_v1(Nodes, 1000, 1000)
-i = 0
-while i < 100:
-    print(g[i])
-    i+=1
-
+'''
 
 '''
 with open("totalidad_de_puntos.csv", "w") as csv_file:
