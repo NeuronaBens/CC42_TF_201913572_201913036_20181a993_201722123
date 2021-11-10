@@ -1,6 +1,7 @@
 import random
 import csv
 import numpy as np
+import math
 
 def findNPerCoordinates(x, y, Vmax, Hmax):
     if y >= Vmax or y < 0:
@@ -10,11 +11,47 @@ def findNPerCoordinates(x, y, Vmax, Hmax):
     N = x*Vmax + y
     return N
 
+def nodeOutOfCuadrangularLimit_byN(N, centerN, toSideSize, maxH, maxV):
+    x, y = findCoordinatesPerN(centerN, maxV)
+    minX = x - toSideSize
+    maxX = x + toSideSize
+    minY = y - toSideSize
+    maxY = y + toSideSize
+    
+    if minX < 0:
+        minX = 0
+    if maxX >= maxH:
+        maxX = maxH - 1
+    if minY < 0:
+        minY = 0
+    if maxY >= maxV:
+        maxY = maxV - 1
+    
+    nxy = findCoordinatesPerN(N, maxV)
+    if(nxy[0] > maxX):
+        return True
+    if(nxy[0] < minX):
+        return True
+    if(nxy[1] > maxY):
+        return True
+    if(nxy[1] < minY):
+        return True
+    
+    return False
+
+
 def findCoordinatesPerN(N, maxV):
     y = N%maxV
     x = (N-y)/maxV
     return x, y
 
+def euclidianDistanceFromNodeToNode(i, j, maxV): #j e i son los nombres, indices de los nodos en cuestion
+    pair1 = findCoordinatesPerN(i, maxV)
+    pair2 = findCoordinatesPerN(j, maxV)
+    dx = pair1[0] - pair2[0]
+    dy = pair1[1] - pair2[1]
+    d = math.sqrt(dx**2 + dy**2)
+    return d
 
 def generateRectangularGraph(d=None, v=None, h=None, eDensity=0.5):
     dist_points = random.randrange(50, 100)
