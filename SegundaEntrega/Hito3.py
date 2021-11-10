@@ -82,8 +82,8 @@ print(createRectangularSubGraph(g, 1001, 5, 1000, 1000))
 index = 0
 for i in types:
   if i == 'd':
-    createRectangularSubGraph(g, i, 5, 1000, 1000) #5 de distancia a los lados de cada punto de distribución 
-    path = dijkstra(g, i)
+    newg = createRectangularSubGraph(g, i, 5, 1000, 1000) #5 de distancia a los lados de cada punto de distribución 
+    path = dijkstra(newg, i)
     print(path)
   index = index + 1
 
