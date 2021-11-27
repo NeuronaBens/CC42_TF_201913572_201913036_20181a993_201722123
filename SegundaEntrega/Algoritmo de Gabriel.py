@@ -161,7 +161,7 @@ def AlgoritmoDeGabriel(G, Type, maxV, maxH):
         aux = i.split(".")
         if aux[3] == "d":
             dists.append(j)
-            visited[j] = False
+            visited[j] = True
             parents[j] = j
         j += 1
     
