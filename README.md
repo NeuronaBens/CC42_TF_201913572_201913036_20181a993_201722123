@@ -13,6 +13,6 @@ Para ver el desarrollo del trabajo, sírvase a entrar a todos los otros archivos
 ### https://youtu.be/Sx_vm8XP1Gc
 
 
-#.
+# .
 
 En la carpeta de "segunda entrega" se pueden encontrar todos los archivos usado para la solución del TF. 
