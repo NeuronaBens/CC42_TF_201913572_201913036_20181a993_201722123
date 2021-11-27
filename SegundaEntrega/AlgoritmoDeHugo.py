@@ -88,6 +88,23 @@ cambio para poder iniciar con un determinado nodo (que sería el del punto de al
 la ruta más corta desde el punto de almacén hacia todos los puntos de entrega
 '''
 
-def algoritmoDeHugo(G):
-    #Por ahora para el hito 4...
-    return None
+def algoritmoDeHugo():
+  Types, G, maxH, maxV = generateRectangularGraph(d=1, v=5, h=20, eDensity=0.5)
+  print("█", end=" ")
+  print(Types, G, maxH, maxV, sep="\n\n ")
+  #print(G)
+
+  # Buscamos el nodo almacén en el grafo
+
+  x = 0
+
+  for element in Types:
+    if element.split('.')[3] == 'd':
+      nodoAlmacen = Types[x]
+    x = x + 1
+
+  print(nodoAlmacen)
+
+  #arbol = kruskal(G, nodoAlmacen)
+
+algoritmoDeHugo()
