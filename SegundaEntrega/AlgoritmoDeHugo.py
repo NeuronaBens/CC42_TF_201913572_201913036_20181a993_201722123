@@ -88,6 +88,7 @@ cambio para poder iniciar con un determinado nodo (que sería el del punto de al
 la ruta más corta desde el punto de almacén hacia todos los puntos de entrega
 '''
 
+# URL de video: https://youtu.be/a7Cl7ypS37Q
 def algoritmoDeHugo():
   Types, G, maxH, maxV = generateRectangularGraph(d=1, v=5, h=20, eDensity=0.5)
   print("█", end=" ")
